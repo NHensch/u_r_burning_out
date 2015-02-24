@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class GameObject {
     public static final int SPEED = 80;
+    public static final int GRAVITY = 10;
     protected Vector2 position;
     protected Vector2 direction = new Vector2(0,0);
     protected Texture texture;
@@ -19,6 +20,13 @@ public class GameObject {
         this.texture = new Texture(Gdx.files.internal(textur));
         this.position = position;
         this.scale = scale;
+    }
+
+    public boolean isColliding(float x, float y, float w, float h) {
+        return x <= position.x +texture.getWidth() * scale
+                && x + w >= position.x
+                && y <= position.y + texture.getHeight() * scale
+                && y + h >= position.y;
     }
 
     public float getWidth() {
