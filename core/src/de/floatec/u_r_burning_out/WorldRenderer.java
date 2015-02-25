@@ -40,7 +40,7 @@ public class WorldRenderer {
     }
 
     private void loadTextures() {
-        playerTexture = new Texture(Gdx.files.internal("player_01.png"));
+        playerTexture = new Texture(Gdx.files.internal("0001.png"));
         blockTexture = new Texture(Gdx.files.internal("block.png"));
     }
 

@@ -38,8 +38,8 @@ public class World {
         blocks.add(new Block(new Vector2(9, 4)));
         blocks.add(new Block(new Vector2(9, 5)));
 
+        blocks.add(new Block(new Vector2(4, 3)));
+        blocks.add(new Block(new Vector2(5, 3)));
         blocks.add(new Block(new Vector2(6, 3)));
-        blocks.add(new Block(new Vector2(6, 4)));
-        blocks.add(new Block(new Vector2(6, 5)));
     }
 }
