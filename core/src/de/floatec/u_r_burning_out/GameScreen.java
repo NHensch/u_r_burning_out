@@ -1,5 +1,6 @@
 package de.floatec.u_r_burning_out;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -10,6 +11,11 @@ public class GameScreen implements Screen {
     private WorldRenderer renderer;
     private int height;
     private int width;
+    private Game parent;
+
+    public GameScreen(URBurningOut parent){
+        this.parent = parent;
+    }
 
     @Override
     public void render(float delta) {
