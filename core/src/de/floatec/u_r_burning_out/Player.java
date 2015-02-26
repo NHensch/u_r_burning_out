@@ -6,6 +6,41 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player {
 
+    public enum State {
+        IDLE, MOVING, JUMPING
+    }
+
+    public static final float SPEED = 4f;
+    public static final float J_SPEED = 1f;
+    public static final float SIZE = 1f;
+
+    private Vector2 position = new Vector2();
+    private Vector2 acceleration = new Vector2();
+    private Vector2 velocity = new Vector2();
+    private Rectangle bounds = new Rectangle();
+    private State state = State.IDLE;
+    private boolean facingLeft = true;
+    private boolean		longJump = false;
+
+    private float stateTime = 0f;
+
+    public Player(Vector2 position) {
+        this.position = position;
+        this.bounds.x = position.x;
+        this.bounds.y = position.y;
+        this.bounds.height = SIZE;
+        this.bounds.width = SIZE;
+    }
+
+    public void setState(State newState) {
+        this.state = newState;
+    }
+
+    public void update(float delta) {
+        stateTime += delta;
+        position.add(velocity.cpy().scl(delta));
+    }
+
     public Vector2 getPosition() {
         return position;
     }
@@ -14,49 +49,45 @@ public class Player {
         return bounds;
     }
 
-    public enum State {
-        IDLE, MOVING, JUMPING
+    public void setFacingLeft(boolean facing) {
+        this.facingLeft = facing;
     }
 
-    public static final float SPEED = 2f;
-    public static final float J_SPEED = 1f;
-    public static final float SIZE = 0.5f;
+    public Vector2 getVelocity() {
+        return velocity;
+    }
 
-    Vector2 position = new Vector2();
-    Vector2 acceleration = new Vector2();
-    Vector2 velocity = new Vector2();
-    Rectangle bounds = new Rectangle();
-    State state = State.IDLE;
-    boolean facingLeft = true;
+    public Vector2 getAcceleration() {
+        return acceleration;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public float getStateTime() {
+        return stateTime;
+    }
+
+    public boolean isFacingLeft() {
+        return facingLeft;
+    }
+
+    public boolean isLongJump() {
+        return longJump;
+    }
 
 
-    public Player(Vector2 position) {
+    public void setLongJump(boolean longJump) {
+        this.longJump = longJump;
+    }
+
+
+    public void setPosition(Vector2 position) {
         this.position = position;
-        this.bounds.height = SIZE;
-        this.bounds.width = SIZE;
+        this.bounds.setX(position.x);
+        this.bounds.setY(position.y);
     }
 
-    /*
-    public void jump() {
-        if (canJump && force <= 0) {
-            force = 2;
-            canJump = false;
-        }
-    }
 
-    @Override
-    public void update(float dt) {
-        force = force - GRAVITY * dt;
-
-        System.out.println(force);
-        direction.y = force;
-        if (position.y < 50 && force < 0) {
-            direction.y = 0;
-            force = 0;
-        }
-
-        Vector2 move = direction.scl(SPEED * dt);
-        position = position.add(move);
-    }
-    */
 }
