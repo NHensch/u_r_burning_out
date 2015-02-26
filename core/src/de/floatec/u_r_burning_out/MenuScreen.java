@@ -16,10 +16,10 @@ public class MenuScreen implements Screen {
 
         private URBurningOut parent;
 
-        protected Texture texture = new Texture(Gdx.files.internal("menuScreen/menue_background.png"));
+        protected Texture texture = new Texture(Gdx.files.internal("menuScreen/menue_background_neu.png"));
         private SpriteBatch spriteBatch = new SpriteBatch();
-        private Button startbutton = new Button(new Vector2(4,4),"menuScreen/button1.png","menuScreen/button2.png","menuScreen/button1.png" );
-        private Button exitbutton = new Button(new Vector2(4,3),"menuScreen/button4.png","menuScreen/button3.png","menuScreen/button4.png");
+        private Button startbutton = new Button(new Vector2(4,4),"menuScreen/button1.png","menuScreen/button1_ausgewaehlt.png","menuScreen/button1_push.png" );
+        private Button exitbutton = new Button(new Vector2(4,4),"menuScreen/button4.png","menuScreen/button4_ausgewaelt.png","menuScreen/button4_push.png");
 
         private float waitTime = 100f;
 
@@ -33,8 +33,9 @@ public class MenuScreen implements Screen {
 
     //Aktionen
     public void update(float delta){
-        waitTime -= 10f;
+        waitTime -= 10f; //verzögerung tastendruck
 
+        //Auswahl unter Buttons
         if(Gdx.input.isKeyPressed(Input.Keys.UP)||Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             if(waitTime < 0f){
                 startbutton.setSelected();
@@ -42,6 +43,11 @@ public class MenuScreen implements Screen {
                 waitTime = 100f;
             }
         }
+        //Escape=Exit
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            exitbutton.setPressed(true);
+        }
+
         //Startbutton
         if(startbutton.isSelected()){
             startbutton.setIndex(1);
@@ -89,8 +95,8 @@ public class MenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         spriteBatch.begin();
         this.spriteBatch.draw(texture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        this.spriteBatch.draw(startbutton.getTexture(), 250, 170, startbutton.getWidth(), startbutton.getHeight());
-        this.spriteBatch.draw(exitbutton.getTexture(), 250, 100, exitbutton.getWidth(), exitbutton.getHeight());
+        this.spriteBatch.draw(startbutton.getTexture(), 237, 310, startbutton.getWidth(), startbutton.getHeight());
+        this.spriteBatch.draw(exitbutton.getTexture(), 237, 170, exitbutton.getWidth(), exitbutton.getHeight());
 
         spriteBatch.end();
     }

@@ -9,15 +9,15 @@ public class URBurningOut extends Game {
 
     @Override
     public void create() {
-        game = new GameScreen(this);
+        game = new GameScreen();
         menu = new MenuScreen(this);
         setScreen(menu);
     }
-  /*  public void switchToMenu(){
+   public void switchToMenu(){
         setScreen(menu);
     }
-    public void switchToGame(){
+    public void switchToGame() {
         setScreen(game);
-    }*/
+    }
 }
 
