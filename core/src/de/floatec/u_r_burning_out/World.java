@@ -48,12 +48,12 @@ public class World {
     }
 
     private void createWorld() {
-
-
-        //tiledMap = new TmxMapLoader().load("world/world.tmx");
         tiledMap = new TmxMapLoader().load("world/world.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         player = new Player(new Vector2(7f, 5f));
+
+        /** Tiledmap **/
+        // tiledMap.getLayers().get(1);
 
     }
 

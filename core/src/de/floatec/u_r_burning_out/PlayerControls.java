@@ -91,6 +91,9 @@ public class PlayerControls {
         if(pos.y <= 0f) {
             player.getVelocity().y = 0f;
         }
+
+        //if(player.getVelocity().y < 0)
+        //world.tiledMap.getLayers().g
     }
     /** Change Player's state and parameters based on input controls **/
     private void processInput() {

@@ -122,6 +122,8 @@ public class WorldRenderer {
         world.tiledMapRenderer.setView(cam);
         world.tiledMapRenderer.render();
 
+        world.tiledMap.getLayers().get(1);
+
     }
 
     private void drawBlocks() {
