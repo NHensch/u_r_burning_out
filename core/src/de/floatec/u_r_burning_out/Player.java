@@ -10,8 +10,6 @@ public class Player {
         IDLE, MOVING, JUMPING
     }
 
-    public static final float SPEED = 4f;
-    public static final float J_SPEED = 1f;
     public static final float SIZE = 1f;
 
     private Vector2 position = new Vector2();
@@ -20,8 +18,6 @@ public class Player {
     private Rectangle bounds = new Rectangle();
     private State state = State.IDLE;
     private boolean facingLeft = true;
-    private boolean		longJump = false;
-
     private float stateTime = 0f;
 
     public Player(Vector2 position) {
@@ -38,7 +34,6 @@ public class Player {
 
     public void update(float delta) {
         stateTime += delta;
-        position.add(velocity.cpy().scl(delta));
     }
 
     public Vector2 getPosition() {
@@ -72,16 +67,6 @@ public class Player {
     public boolean isFacingLeft() {
         return facingLeft;
     }
-
-    public boolean isLongJump() {
-        return longJump;
-    }
-
-
-    public void setLongJump(boolean longJump) {
-        this.longJump = longJump;
-    }
-
 
     public void setPosition(Vector2 position) {
         this.position = position;
