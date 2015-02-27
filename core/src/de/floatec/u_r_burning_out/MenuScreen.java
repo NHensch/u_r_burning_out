@@ -3,11 +3,10 @@ package de.floatec.u_r_burning_out;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -17,31 +16,29 @@ import com.badlogic.gdx.math.Vector2;
 public class MenuScreen implements Screen {
 
         private URBurningOut parent;
-    //ANIMATION
-    private Animation runLeftAnimation;
-    private Animation runRightAnimation;
-    private Animation idleLeftAnimation;
-    private Animation idleRightAnimation;
-    private TextureRegion playerIdleLeft;
-    private TextureRegion playerIdleRight;
-    private TextureRegion playerFrame;
-    private float ppuX;	// pixels per unit on the X axis
-    private float ppuY;	// pixels per unit on the Y axis
-    private Player player;
 
+    private Sound music;
+    private Sound fire;
+    private Sound musicGame;
 
     protected Texture texture = new Texture(Gdx.files.internal("menuScreen/menue_background_neu.png"));
-        private SpriteBatch spriteBatch = new SpriteBatch();
-        private Button startbutton = new Button(new Vector2(4,4),"menuScreen/button1.png","menuScreen/button1_ausgewaehlt.png","menuScreen/button1_push.png" );
-        private Button exitbutton = new Button(new Vector2(4,4),"menuScreen/button4.png","menuScreen/button4_ausgewaelt.png","menuScreen/button4_push.png");
+    private SpriteBatch spriteBatch = new SpriteBatch();
+    private Button startbutton = new Button(new Vector2(4,4),"menuScreen/button1.png","menuScreen/button1_ausgewaehlt.png","menuScreen/button1_push.png" );
+    private Button exitbutton = new Button(new Vector2(4,4),"menuScreen/button4.png","menuScreen/button4_ausgewaelt.png","menuScreen/button4_push.png");
 
-        private float waitTime = 100f;
+    private float waitTime = 100f;
 
 
 
     public MenuScreen(URBurningOut parent){
         this.parent = parent;
         startbutton.setSelected(true);
+        music = Gdx.audio.newSound(Gdx.files.internal("menuScreenMusic/MenuGuitar.wav"));
+        fire = Gdx.audio.newSound(Gdx.files.internal("menuScreenMusic/Fireplace.mp3"));
+        musicGame = Gdx.audio.newSound(Gdx.files.internal("menuScreenMusic/GameGuitar.mp3"));
+        music.loop();
+        fire.loop();
+
     }
 
 
@@ -72,6 +69,8 @@ public class MenuScreen implements Screen {
         if (startbutton.isPressed()) {
             startbutton.setIndex(2);
             this.parent.setScreen(parent.game);
+            music.stop();
+            musicGame.loop();
 
         }
         if (!startbutton.isSelected()) {
