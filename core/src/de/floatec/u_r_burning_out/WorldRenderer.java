@@ -17,7 +17,7 @@ public class WorldRenderer {
     private static final int FRAME_ROWS = 5;
 
     private World world;
-    private OrthographicCamera cam;
+    //private OrthographicCamera cam;
 
     /** Textures **/
     private Texture blockTexture;
@@ -37,9 +37,6 @@ public class WorldRenderer {
     private Animation idleLeftAnimation;
     private Animation idleRightAnimation;
 
-    private TextureRegion playerIdleLeft;
-    private TextureRegion playerIdleRight;
-//    private TextureRegion blockTexture;
     private TextureRegion playerFrame;
 
 
@@ -111,7 +108,6 @@ public class WorldRenderer {
 
         for (Block block : world.getBlocks()) {
             spriteBatch.draw(blockTexture, block.getPosition().x * ppuX, block.getPosition().y * ppuY, Block.SIZE * ppuX, Block.SIZE * ppuY);
-            //System.out.println("Block " + block.getPosition() + " gerendert");
         }
     }
 

@@ -67,7 +67,7 @@ public class GameScreen implements Screen, InputProcessor {
             controls.leftPressed();
         if (keycode == Input.Keys.RIGHT)
             controls.rightPressed();
-        if (keycode == Input.Keys.UP)
+        if (keycode == Input.Keys.SPACE)
             controls.jumpPressed();
         return true;
 
@@ -79,7 +79,7 @@ public class GameScreen implements Screen, InputProcessor {
             controls.leftReleased();
         if (keycode == Input.Keys.RIGHT)
             controls.rightReleased();
-        if (keycode == Input.Keys.UP)
+        if (keycode == Input.Keys.SPACE)
             controls.jumpReleased();
         return true;
     }
