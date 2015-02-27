@@ -39,7 +39,6 @@ public class MenuScreen implements Screen {
     private Button exitbutton = new Button(new Vector2(4,4),"menuScreen/button4.png","menuScreen/button4_ausgewaelt.png","menuScreen/button4_push.png");
 
     private float waitTime = 100f;
-    private int waitTime2 = 10000;
 
     private boolean gameIsExiting= false;
 
@@ -48,15 +47,17 @@ public class MenuScreen implements Screen {
     public MenuScreen(URBurningOut parent){
         this.parent = parent;
         startbutton.setSelected(true);
+
         music = Gdx.audio.newMusic(Gdx.files.internal("menuScreenMusic/MenuGuitar.wav"));
+        blueslick = Gdx.audio.newMusic(Gdx.files.internal("menuScreenMusic/blueslick.mp3"));
+        jazzlick = Gdx.audio.newMusic(Gdx.files.internal("menuScreenMusic/jazzlick.mp3"));
+
+
         fire = Gdx.audio.newSound(Gdx.files.internal("menuScreenMusic/Fireplace.mp3"));
         musicGame = Gdx.audio.newSound(Gdx.files.internal("menuScreenMusic/GameGuitar.mp3"));
         lighting = Gdx.audio.newSound(Gdx.files.internal("menuScreenMusic/match.wav"));
         crack = Gdx.audio.newSound(Gdx.files.internal("menuScreenMusic/crack.wav"));
         footsteps = Gdx.audio.newSound(Gdx.files.internal("menuScreenMusic/footsteps.mp3"));
-        blueslick = Gdx.audio.newMusic(Gdx.files.internal("menuScreenMusic/blueslick.mp3"));
-        jazzlick = Gdx.audio.newMusic(Gdx.files.internal("menuScreenMusic/jazzlick.mp3"));
-
 
         blueslick.play();
         fire.loop();
@@ -141,8 +142,8 @@ public class MenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         spriteBatch.begin();
         this.spriteBatch.draw(texture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        this.spriteBatch.draw(startbutton.getTexture(), 237, 310, startbutton.getWidth(), startbutton.getHeight());
-        this.spriteBatch.draw(exitbutton.getTexture(), 237, 170, exitbutton.getWidth(), exitbutton.getHeight());
+        this.spriteBatch.draw(startbutton.getTexture(), 237, 360, startbutton.getWidth(), startbutton.getHeight());
+        this.spriteBatch.draw(exitbutton.getTexture(), 237, 200, exitbutton.getWidth(), exitbutton.getHeight());
         spriteBatch.end();
     }
 
@@ -155,6 +156,7 @@ public class MenuScreen implements Screen {
 
         jazzlick.setOnCompletionListener(endListener);
     }
+
 
 
     @Override
