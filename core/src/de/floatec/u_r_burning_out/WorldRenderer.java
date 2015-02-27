@@ -1,20 +1,23 @@
 package de.floatec.u_r_burning_out;
 
         import com.badlogic.gdx.Gdx;
+        import com.badlogic.gdx.graphics.GL20;
         import com.badlogic.gdx.graphics.OrthographicCamera;
         import com.badlogic.gdx.graphics.Texture;
         import com.badlogic.gdx.graphics.g2d.Animation;
         import com.badlogic.gdx.graphics.g2d.SpriteBatch;
         import com.badlogic.gdx.graphics.g2d.TextureRegion;
+        import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class WorldRenderer {
 
-    private static final float CAMERA_WIDTH = 10f;
-    private static final float CAMERA_HEIGHT = 7f;
+    private static final float CAMERA_WIDTH = 800f;
+    private static final float CAMERA_HEIGHT = 600f;
 
     private static final float RUNNING_FRAME_DURATION = 0.05f;
     private static final int FRAME_COLS = 10;
     private static final int FRAME_ROWS = 1;
+    private final OrthographicCamera cam;
 
     private World world;
     //private OrthographicCamera cam;
@@ -48,15 +51,19 @@ public class WorldRenderer {
     public void setSize (int w, int h) {
         this.width = w;
         this.height = h;
+        ppuX = 20f;
+        ppuY = 20f;
+        /*
         ppuX = (float)width / CAMERA_WIDTH;
         ppuY = (float)height / CAMERA_HEIGHT;
+        */
     }
 
     public WorldRenderer(World world) {
         this.world = world;
-        //this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
-        //this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
-        //this.cam.update();
+        this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
+        this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
+        this.cam.update();
         spriteBatch = new SpriteBatch();
         loadTextures();
     }
@@ -98,10 +105,23 @@ public class WorldRenderer {
     }
 
     public void render() {
+        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+
+        //drawBlocks();
+
+        drawWorld();
         spriteBatch.begin();
-        drawBlocks();
         drawPlayer();
         spriteBatch.end();
+    }
+
+    private void drawWorld() {
+        world.tiledMapRenderer.setView(cam);
+        world.tiledMapRenderer.render();
+
     }
 
     private void drawBlocks() {
@@ -114,7 +134,8 @@ public class WorldRenderer {
     private void drawPlayer() {
         Player player = world.getPlayer();
 
-        //System.out.println("Players position: " + player.getPosition());
+        // world.tiledMapRenderer.getSp
+        System.out.println("Players position: " + player.getPosition());
         if(player.getState().equals(Player.State.IDLE)) {
             playerFrame = player.isFacingLeft() ? idleLeftAnimation.getKeyFrame(player.getStateTime(), true) : idleRightAnimation.getKeyFrame(player.getStateTime(), true);
         }

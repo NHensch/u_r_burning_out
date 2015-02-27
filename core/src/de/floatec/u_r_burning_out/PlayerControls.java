@@ -11,9 +11,9 @@ public class PlayerControls {
         LEFT, RIGHT, JUMP
     }
 
-    private static final float ACCELERATION 	= 5f;
+    private static final float ACCELERATION 	= 10f;
     private static final float GRAVITY 			= -10f;
-    private static final float MAX_JUMP_SPEED	= 5f;
+    private static final float MAX_JUMP_SPEED	= 7f;
     private static final float MAX_VEL 			= 3f;
 
     private World 	world;

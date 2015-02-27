@@ -1,5 +1,9 @@
 package de.floatec.u_r_burning_out;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -8,6 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class World {
+
+    /** Variables needed for Tiled Map**/
+    TiledMap tiledMap;
+    TiledMapRenderer tiledMapRenderer;
 
     private int width;
     private int height;
@@ -34,14 +42,24 @@ public class World {
     }
 
     public World() {
-        createDemoWorld();
-        System.out.println("Demoworld created");
+        // createDemoWorld();
+        createWorld();
+        System.out.println("World is created");
+    }
+
+    private void createWorld() {
+
+
+        //tiledMap = new TmxMapLoader().load("world/world.tmx");
+        tiledMap = new TmxMapLoader().load("world/world.tmx");
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+        player = new Player(new Vector2(7f, 5f));
+
     }
 
     private void createDemoWorld() {
         player = new Player(new Vector2(7, 5));
 
-        System.out.println("Player created");
         for (int i = 0; i < 10; i++) {
             blocks.add(new Block(new Vector2(i, 0)));
             blocks.add(new Block(new Vector2(i, 7)));
