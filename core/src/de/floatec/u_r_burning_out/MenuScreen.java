@@ -3,6 +3,7 @@ package de.floatec.u_r_burning_out;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,9 +18,13 @@ public class MenuScreen implements Screen {
 
         private URBurningOut parent;
 
-    private Sound music;
+    private Music music;
     private Sound fire;
     private Sound musicGame;
+    private Sound lighting;
+    private Sound crack;
+    private Sound footsteps;
+    private Music blueslick;
 
     protected Texture texture = new Texture(Gdx.files.internal("menuScreen/menue_background_neu.png"));
     private SpriteBatch spriteBatch = new SpriteBatch();
@@ -33,11 +38,19 @@ public class MenuScreen implements Screen {
     public MenuScreen(URBurningOut parent){
         this.parent = parent;
         startbutton.setSelected(true);
-        music = Gdx.audio.newSound(Gdx.files.internal("menuScreenMusic/MenuGuitar.wav"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("menuScreenMusic/MenuGuitar.wav"));
         fire = Gdx.audio.newSound(Gdx.files.internal("menuScreenMusic/Fireplace.mp3"));
         musicGame = Gdx.audio.newSound(Gdx.files.internal("menuScreenMusic/GameGuitar.mp3"));
-        music.loop();
+        lighting = Gdx.audio.newSound(Gdx.files.internal("menuScreenMusic/match.wav"));
+        crack = Gdx.audio.newSound(Gdx.files.internal("menuScreenMusic/crack.wav"));
+        footsteps = Gdx.audio.newSound(Gdx.files.internal("menuScreenMusic/footsteps.mp3"));
+        blueslick = Gdx.audio.newMusic(Gdx.files.internal("menuScreenMusic/blueslick.mp3"));
+
+        blueslick.play();
         fire.loop();
+        footsteps.loop();
+
+
 
     }
 
@@ -46,17 +59,24 @@ public class MenuScreen implements Screen {
     public void update(float delta) {
         waitTime -= 10f; //verzögerung tastendruck
 
+        //MenuScreen music is played after opening GuitarLick
+        if(!blueslick.isPlaying()&&!music.isPlaying()) {
+            music.play();
+        }
+
         //Auswahl unter Buttons
         if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             if (waitTime < 0f) {
                 startbutton.setSelected();
                 exitbutton.setSelected();
+                crack.play();
                 waitTime = 100f;
             }
         }
         //Escape=Exit
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             exitbutton.setPressed(true);
+
         }
 
         //Startbutton
@@ -68,9 +88,12 @@ public class MenuScreen implements Screen {
         }
         if (startbutton.isPressed()) {
             startbutton.setIndex(2);
-            this.parent.setScreen(parent.game);
+            crack.play();
+            crack.play();
             music.stop();
+            lighting.play();
             musicGame.loop();
+            this.parent.setScreen(parent.game);
 
         }
         if (!startbutton.isSelected()) {
@@ -86,6 +109,8 @@ public class MenuScreen implements Screen {
         }
         if (exitbutton.isPressed()) {
             exitbutton.setIndex(2);
+            crack.play();
+            crack.play();
             Gdx.app.exit();
 
         }
