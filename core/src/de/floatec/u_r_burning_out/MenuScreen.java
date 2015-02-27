@@ -25,6 +25,13 @@ public class MenuScreen implements Screen {
     private Sound crack;
     private Sound footsteps;
     private Music blueslick;
+    private Music jazzlick;
+    private Music.OnCompletionListener endListener = new Music.OnCompletionListener() {
+       @Override
+       public void onCompletion(Music music) {
+           Gdx.app.exit();
+       }
+   };
 
     protected Texture texture = new Texture(Gdx.files.internal("menuScreen/menue_background_neu.png"));
     private SpriteBatch spriteBatch = new SpriteBatch();
@@ -32,6 +39,9 @@ public class MenuScreen implements Screen {
     private Button exitbutton = new Button(new Vector2(4,4),"menuScreen/button4.png","menuScreen/button4_ausgewaelt.png","menuScreen/button4_push.png");
 
     private float waitTime = 100f;
+    private int waitTime2 = 10000;
+
+    private boolean gameIsExiting= false;
 
 
 
@@ -45,6 +55,8 @@ public class MenuScreen implements Screen {
         crack = Gdx.audio.newSound(Gdx.files.internal("menuScreenMusic/crack.wav"));
         footsteps = Gdx.audio.newSound(Gdx.files.internal("menuScreenMusic/footsteps.mp3"));
         blueslick = Gdx.audio.newMusic(Gdx.files.internal("menuScreenMusic/blueslick.mp3"));
+        jazzlick = Gdx.audio.newMusic(Gdx.files.internal("menuScreenMusic/jazzlick.mp3"));
+
 
         blueslick.play();
         fire.loop();
@@ -89,7 +101,6 @@ public class MenuScreen implements Screen {
         if (startbutton.isPressed()) {
             startbutton.setIndex(2);
             crack.play();
-            crack.play();
             music.stop();
             lighting.play();
             musicGame.loop();
@@ -108,11 +119,9 @@ public class MenuScreen implements Screen {
             }
         }
         if (exitbutton.isPressed()) {
-            exitbutton.setIndex(2);
-            crack.play();
-            crack.play();
-            Gdx.app.exit();
-
+            if(!gameIsExiting) {
+                exitGame();
+            }
         }
         if (!exitbutton.isSelected()) {
             exitbutton.setIndex(0);
@@ -135,6 +144,16 @@ public class MenuScreen implements Screen {
         this.spriteBatch.draw(startbutton.getTexture(), 237, 310, startbutton.getWidth(), startbutton.getHeight());
         this.spriteBatch.draw(exitbutton.getTexture(), 237, 170, exitbutton.getWidth(), exitbutton.getHeight());
         spriteBatch.end();
+    }
+
+    public void exitGame(){
+        gameIsExiting = true;
+        exitbutton.setIndex(2);
+        music.stop();
+        crack.play();
+        jazzlick.play();
+
+        jazzlick.setOnCompletionListener(endListener);
     }
 
 
